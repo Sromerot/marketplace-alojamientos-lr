@@ -1,1 +1,26 @@
-<p>catalogo works!</p>
+<section class="pagina">
+  <h4 class="titulo">Alojamientos</h4>
+
+  <app-barra-busqueda
+    [tipos]="tipos()"
+    [filtrosIniciales]="filtros()"
+    (filtrosChange)="actualizarFiltros($event)"
+  />
+
+  <p class="contador">{{ resultados().length }} alojamientos encontrados</p>
+
+  @if (resultados().length > 0) {
+    <div class="grilla">
+      @for (alojamiento of resultados(); track alojamiento.id) {
+        <app-alojamiento-card [alojamiento]="alojamiento" />
+      }
+    </div>
+  } @else {
+    <app-alerta-mensaje
+      tipo="info"
+      mensaje="No encontramos alojamientos con esos filtros."
+      textoBoton="Limpiar filtros"
+      (accion)="limpiarFiltros()"
+    />
+  }
+</section>

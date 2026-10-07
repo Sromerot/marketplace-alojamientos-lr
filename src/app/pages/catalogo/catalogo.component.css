@@ -1,0 +1,30 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 3);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(var(--space) * 4) calc(var(--space) * 3);
+}
+
+.contador {
+  margin: 0;
+  font-size: 16px;
+  color: var(--color-text-secondary);
+}
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(var(--space) * 3);
+}
+
+@media (max-width: 767px) {
+  .grilla {
+    grid-template-columns: 1fr;
+  }
+
+  .titulo {
+    font-size: 28px;
+  }
+}

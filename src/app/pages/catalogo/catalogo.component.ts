@@ -1,9 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { AlojamientoService } from '../../services/alojamiento.service';
+import { FiltrosAlojamiento } from '../../models/filtros-alojamiento';
+import { AlojamientoCardComponent } from '../../components/alojamiento-card/alojamiento-card.component';
+import { BarraBusquedaComponent } from '../../components/barra-busqueda/barra-busqueda.component';
+import { AlertaMensajeComponent } from '../../components/alerta-mensaje/alerta-mensaje.component';
 
 @Component({
-  imports: [],
+  imports: [AlojamientoCardComponent, BarraBusquedaComponent, AlertaMensajeComponent],
   selector: 'app-catalogo',
   styleUrl: './catalogo.component.css',
   templateUrl: './catalogo.component.html',
 })
-export class CatalogoComponent {}
+export class CatalogoComponent {
+  private readonly alojamientoService = inject(AlojamientoService);
+  private readonly route = inject(ActivatedRoute);
+
+  private readonly barra = viewChild(BarraBusquedaComponent);
+
+  alojamientos = toSignal(this.alojamientoService.obtenerActivos(), { initialValue: [] });
+  tipos = toSignal(this.alojamientoService.obtenerTipos(), { initialValue: [] });
+  filtros = signal<FiltrosAlojamiento>({});
+
+  resultados = computed(() => this.alojamientoService.filtrar(this.alojamientos(), this.filtros()));
+
+  constructor() {
+    this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const huespedes = Number(params.get('huespedes'));
+      const precioMax = Number(params.get('precioMax'));
+      this.filtros.set({
+        ciudad: params.get('ciudad') || undefined,
+        huespedes: huespedes > 0 ? huespedes : undefined,
+        tipo: params.get('tipo') || undefined,
+        precioMax: precioMax > 0 ? precioMax : undefined,
+      });
+    });
+  }
+
+  actualizarFiltros(filtros: FiltrosAlojamiento): void {
+    this.filtros.set(filtros);
+  }
+
+  limpiarFiltros(): void {
+    this.barra()?.limpiar();
+  }
+}
