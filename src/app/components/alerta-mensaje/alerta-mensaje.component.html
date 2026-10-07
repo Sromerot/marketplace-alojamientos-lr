@@ -1,0 +1,24 @@
+<div class="alerta" [class]="'alerta ' + tipo()" role="alert">
+  <span class="icono" aria-hidden="true">
+    @switch (tipo()) {
+      @case ('exito') {
+        ✓
+      }
+      @case ('error') {
+        !
+      }
+      @case ('advertencia') {
+        ⚠
+      }
+      @default {
+        i
+      }
+    }
+  </span>
+  <p class="mensaje">{{ mensaje() }}</p>
+  @if (textoBoton()) {
+    <button type="button" class="boton-principal" (click)="accion.emit()">
+      {{ textoBoton() }}
+    </button>
+  }
+</div>

@@ -1,0 +1,72 @@
+.alerta {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space) * 1.5);
+  flex-wrap: wrap;
+  padding: calc(var(--space) * 2);
+  border: 1px solid var(--color-info-main);
+  border-radius: var(--radius-control);
+  background-color: color-mix(in srgb, var(--color-info-main) 10%, transparent);
+}
+
+.alerta.exito {
+  border-color: var(--color-success-main);
+  background-color: color-mix(in srgb, var(--color-success-main) 10%, transparent);
+}
+
+.alerta.error {
+  border-color: var(--color-error-main);
+  background-color: color-mix(in srgb, var(--color-error-main) 10%, transparent);
+}
+
+.alerta.advertencia {
+  border-color: var(--color-warning-main);
+  background-color: color-mix(in srgb, var(--color-warning-main) 10%, transparent);
+}
+
+.icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-info-main);
+}
+
+.exito .icono {
+  background-color: var(--color-success-main);
+}
+
+.error .icono {
+  background-color: var(--color-error-main);
+}
+
+.advertencia .icono {
+  background-color: var(--color-warning-main);
+}
+
+.mensaje {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+}
+
+.boton-principal {
+  padding: var(--space) calc(var(--space) * 2);
+  border: none;
+  border-radius: var(--radius-control);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-primary-main);
+  cursor: pointer;
+}
+
+.boton-principal:hover {
+  background-color: var(--color-primary-dark);
+}
