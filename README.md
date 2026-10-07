@@ -1,59 +1,55 @@
-# MarketplaceAlojamientosLr
+# Marketplace de Alojamientos — Inversiones LR
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.2.
+Frontend de un marketplace de alojamientos temporales (plataforma **LR**). El huésped explora alojamientos, los filtra, consulta el detalle, obtiene una cotización, simula una reserva y consulta sus reservas. No tiene backend, login ni pagos: los datos salen de un JSON y las reservas se guardan en `localStorage`.
 
-## Development server
+Proyecto académico — Desarrollo de Sistemas de Información 3, Universidad El Bosque.
 
-To start a local development server, run:
+## Integrantes
 
-```bash
-ng serve
-```
+- (Escribe aquí tu nombre)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tecnologías
 
-## Code scaffolding
+- Angular 22 (componentes standalone), TypeScript estricto
+- Reactive Forms, Angular Router, HttpClient
+- CSS puro (sin Bootstrap ni Angular Material)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Requisitos
 
-```bash
-ng generate component component-name
-```
+- Node.js v26.9.0 (la versión usada en el desarrollo)
+- Angular CLI 22.2.2
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Instalación
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Ejecución
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+Abre http://localhost:4200.
 
-For end-to-end (e2e) testing, run:
+## Funcionalidades principales
 
-```bash
-ng e2e
+_(Se completa a medida que avanzan los pasos.)_
+
+Hasta ahora (paso 1): modelos, datos JSON, tokens de diseño y `AlojamientoService`.
+
+## Estructura del proyecto
+
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+src/
+├── assets/
+│   ├── data/marketplace-data.json
+│   └── images/
+├── styles.css          tokens y estilos globales
+└── app/
+    ├── models/         alojamiento, resena, filtros, cotizacion, reserva
+    ├── services/       alojamiento (los demás llegan en pasos siguientes)
+    ├── app.routes.ts
+    └── app.config.ts
+```
