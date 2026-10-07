@@ -1,0 +1,34 @@
+<form class="barra" [formGroup]="formulario" (submit)="$event.preventDefault()" novalidate>
+  <div class="fila principal">
+    <div class="campo">
+      <label class="etiqueta" for="ciudad">Dónde</label>
+      <input id="ciudad" type="text" formControlName="ciudad" placeholder="Ciudad" />
+    </div>
+
+    <div class="campo">
+      <label class="etiqueta" for="huespedes">Quién</label>
+      <input id="huespedes" type="number" min="1" formControlName="huespedes" placeholder="Huéspedes" />
+    </div>
+
+    <button type="button" class="boton-limpiar" aria-label="Limpiar filtros" (click)="limpiar()">✕</button>
+  </div>
+
+  @if (mostrarSecundarios()) {
+    <div class="fila secundaria">
+      <div class="campo">
+        <label class="etiqueta" for="tipo">Tipo</label>
+        <select id="tipo" formControlName="tipo">
+          <option value="">Todos</option>
+          @for (tipo of tipos(); track tipo) {
+            <option [value]="tipo">{{ tipo }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="campo">
+        <label class="etiqueta" for="precioMax">Precio máximo</label>
+        <input id="precioMax" type="number" min="0" formControlName="precioMax" placeholder="COP por noche" />
+      </div>
+    </div>
+  }
+</form>
