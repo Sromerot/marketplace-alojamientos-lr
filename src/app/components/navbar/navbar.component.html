@@ -1,0 +1,29 @@
+<header class="navbar">
+  <a class="logo" routerLink="/" (click)="cerrarMenu()">LR</a>
+
+  <button
+    type="button"
+    class="hamburguesa"
+    aria-label="Abrir menú"
+    [attr.aria-expanded]="menuAbierto()"
+    (click)="alternarMenu()"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="enlaces" [class.abierto]="menuAbierto()">
+    <a
+      routerLink="/"
+      routerLinkActive="activo"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="cerrarMenu()"
+      >Inicio</a
+    >
+    <a routerLink="/alojamientos" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: false }" (click)="cerrarMenu()"
+      >Alojamientos</a
+    >
+    <a routerLink="/mis-reservas" routerLinkActive="activo" (click)="cerrarMenu()">Mis reservas</a>
+  </nav>
+</header>
