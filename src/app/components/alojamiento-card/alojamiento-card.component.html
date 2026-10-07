@@ -1,0 +1,32 @@
+<a class="tarjeta" [class.compacta]="variante() === 'compacta'" [routerLink]="['/alojamientos', alojamiento().id]">
+  <div class="imagen">
+    @if (!imagenFallida()) {
+      <img [src]="alojamiento().imagenPrincipal" [alt]="alojamiento().nombre" (error)="imagenFallida.set(true)" />
+    }
+  </div>
+
+  <div class="contenido">
+    @if (variante() === 'grande') {
+      <span class="overline etiqueta">{{ alojamiento().tipo }}</span>
+    }
+    <h6 class="nombre">{{ alojamiento().nombre }}</h6>
+    <p class="ciudad">{{ alojamiento().ciudad }}</p>
+
+    @if (variante() === 'grande') {
+      <p class="capacidad">{{ alojamiento().capacidad }} huéspedes</p>
+      <div class="servicios">
+        @for (servicio of alojamiento().servicios; track servicio) {
+          <span class="chip">{{ servicio }}</span>
+        }
+      </div>
+    }
+
+    <div class="pie">
+      <p class="precio">
+        {{ alojamiento().precioNoche | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}
+        <span class="noche">/ noche</span>
+      </p>
+      <p class="calificacion"><span class="estrella">★</span> {{ alojamiento().calificacion }}</p>
+    </div>
+  </div>
+</a>
