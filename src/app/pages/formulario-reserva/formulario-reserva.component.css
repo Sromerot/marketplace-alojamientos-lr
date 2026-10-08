@@ -1,0 +1,301 @@
+.pagina-reserva {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: calc(var(--space) * 3) calc(var(--space) * 3) calc(var(--space) * 8);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 3);
+}
+
+.cabecera-reserva {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+}
+
+.enlace-volver {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary-main);
+}
+
+.titulo-pantalla {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.columnas-reserva {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: calc(var(--space) * 5);
+  align-items: start;
+}
+
+.resumen-card,
+.formulario-card {
+  background-color: var(--color-bg-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-1);
+  padding: calc(var(--space) * 3);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 2.5);
+}
+
+.resumen-encabezado {
+  display: flex;
+  gap: calc(var(--space) * 2);
+  align-items: center;
+}
+
+.resumen-img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: var(--radius-control);
+}
+
+.resumen-datos-alojamiento {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tipo-tag {
+  color: var(--color-text-secondary);
+}
+
+.resumen-nombre {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.resumen-ciudad {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.detalles-resumen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--space) * 2);
+}
+
+.item-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.etiqueta-resumen {
+  color: var(--color-text-secondary);
+}
+
+.valor-resumen {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.desglose-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+}
+
+.fila-precio {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.fila-precio.total-fila {
+  align-items: baseline;
+  color: var(--color-text-primary);
+}
+
+.total-etiqueta,
+.total-valor {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.reglas-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space);
+  color: var(--color-text-secondary);
+}
+
+.lista-reglas-mini {
+  margin: 0;
+  padding-left: calc(var(--space) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mini-preview {
+  display: flex;
+  gap: calc(var(--space) * 2);
+  align-items: center;
+}
+
+.mini-img {
+  width: 60px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: var(--radius-control);
+}
+
+.mini-nombre {
+  margin: 0;
+  font-size: 14px;
+}
+
+.mini-precio {
+  margin: 4px 0 0;
+  color: var(--color-text-secondary);
+}
+
+.form-huesped {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 2.5);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.etiqueta {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-paper);
+  border: 1px solid var(--color-action-disabled);
+  border-radius: var(--radius-control);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--color-primary-main);
+  box-shadow: 0 0 0 3px var(--color-primary-focus);
+}
+
+.campo-error input {
+  border-color: var(--color-error-main);
+}
+
+.mensaje-error {
+  color: var(--color-error-main);
+  margin: 0;
+}
+
+.boton-confirmar {
+  width: 100%;
+  padding: 14px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-primary-main);
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.boton-confirmar:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.divisor {
+  height: 1px;
+  background-color: var(--color-divider);
+}
+
+.estado-exito {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 3);
+  max-width: 680px;
+  margin: calc(var(--space) * 2) auto;
+}
+
+.tarjeta-exito {
+  background-color: var(--color-bg-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-1);
+  padding: calc(var(--space) * 4);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 2);
+}
+
+.titulo-exito {
+  margin: 0 0 var(--space);
+  color: var(--color-text-primary);
+}
+
+.total-texto {
+  font-size: 16px;
+  color: var(--color-primary-main);
+  margin-top: var(--space);
+}
+
+.acciones-exito {
+  display: flex;
+  gap: calc(var(--space) * 2);
+  margin-top: calc(var(--space) * 2);
+}
+
+.boton-principal,
+.boton-secundario {
+  padding: 12px 20px;
+  border-radius: var(--radius-control);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.boton-principal {
+  background-color: var(--color-primary-main);
+  color: var(--color-white);
+}
+
+.boton-principal:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.boton-secundario {
+  background-color: var(--color-action-hover);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-divider);
+}
+
+.boton-secundario:hover {
+  background-color: var(--color-action-disabled-bg);
+}
+
+@media (max-width: 860px) {
+  .columnas-reserva {
+    grid-template-columns: 1fr;
+  }
+}

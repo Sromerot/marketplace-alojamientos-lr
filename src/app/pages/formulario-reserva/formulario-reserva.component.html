@@ -1,1 +1,147 @@
-<p>formulario-reserva works!</p>
+<div class="pagina-reserva">
+  @if (reservaConfirmada(); as r) {
+    <div class="estado-exito">
+      <app-alerta-mensaje
+        tipo="exito"
+        [mensaje]="'¡Reserva confirmada con éxito! Identificador: ' + r.id + ' (Estado: ' + r.estado + ')'"
+      />
+
+      <div class="tarjeta-exito">
+        <h5 class="titulo-exito">Detalles de tu reserva</h5>
+        <p class="body2"><strong>Alojamiento:</strong> {{ r.alojamientoNombre }} ({{ r.ciudad }})</p>
+        <p class="body2"><strong>Huésped:</strong> {{ r.nombreHuesped }} ({{ r.correo }})</p>
+        <p class="body2"><strong>Fechas:</strong> {{ r.fechaLlegada }} al {{ r.fechaSalida }} ({{ r.noches }} {{ r.noches === 1 ? 'noche' : 'noches' }})</p>
+        <p class="body2"><strong>Huéspedes:</strong> {{ r.huespedes }}</p>
+        <p class="body2 total-texto"><strong>Total:</strong> {{ r.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</p>
+
+        <div class="acciones-exito">
+          <a routerLink="/mis-reservas" class="boton-principal">Ver mis reservas</a>
+          <a routerLink="/alojamientos" class="boton-secundario">Explorar más alojamientos</a>
+        </div>
+      </div>
+    </div>
+  } @else if (alojamiento() && cotizacion(); as c) {
+    <div class="cabecera-reserva">
+      <a [routerLink]="['/alojamientos', alojamiento()!.id]" class="enlace-volver">← Modificar cotización</a>
+      <h4 class="titulo-pantalla">Confirmar reserva</h4>
+    </div>
+
+    <div class="columnas-reserva">
+      <!-- Columna Izquierda: Resumen completo -->
+      <section class="resumen-card">
+        <div class="resumen-encabezado">
+          <img [src]="alojamiento()!.imagenPrincipal" [alt]="alojamiento()!.nombre" class="resumen-img" />
+          <div class="resumen-datos-alojamiento">
+            <span class="overline tipo-tag">{{ alojamiento()!.tipo }}</span>
+            <h6 class="resumen-nombre">{{ alojamiento()!.nombre }}</h6>
+            <p class="resumen-ciudad caption">{{ alojamiento()!.ciudad }}</p>
+          </div>
+        </div>
+
+        <div class="divisor"></div>
+
+        <div class="detalles-resumen">
+          <div class="item-resumen">
+            <span class="overline etiqueta-resumen">Dónde</span>
+            <p class="valor-resumen body2">{{ alojamiento()!.ubicacion.includes(alojamiento()!.ciudad) ? alojamiento()!.ubicacion : alojamiento()!.ubicacion + ', ' + alojamiento()!.ciudad }}</p>
+          </div>
+
+          <div class="item-resumen">
+            <span class="overline etiqueta-resumen">Fechas</span>
+            <p class="valor-resumen body2">{{ cotizacion()!.fechaLlegada }} al {{ cotizacion()!.fechaSalida }}</p>
+          </div>
+
+          <div class="item-resumen">
+            <span class="overline etiqueta-resumen">Quién</span>
+            <p class="valor-resumen body2">{{ cotizacion()!.huespedes }} {{ cotizacion()!.huespedes === 1 ? 'huésped' : 'huéspedes' }}</p>
+          </div>
+
+          <div class="item-resumen">
+            <span class="overline etiqueta-resumen">Noches</span>
+            <p class="valor-resumen body2">{{ cotizacion()!.noches }} {{ cotizacion()!.noches === 1 ? 'noche' : 'noches' }}</p>
+          </div>
+        </div>
+
+        <div class="divisor"></div>
+
+        <div class="desglose-resumen">
+          <div class="fila-precio">
+            <span>Alojamiento ({{ cotizacion()!.noches }} noches)</span>
+            <span>{{ cotizacion()!.subtotal | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+          </div>
+          <div class="fila-precio">
+            <span>Tarifa de limpieza</span>
+            <span>{{ cotizacion()!.tarifaLimpieza | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+          </div>
+          <div class="fila-precio">
+            <span>Tarifa de servicio (10 %)</span>
+            <span>{{ cotizacion()!.tarifaServicio | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+          </div>
+          <div class="divisor"></div>
+          <div class="fila-precio total-fila">
+            <h5 class="total-etiqueta">Total</h5>
+            <h5 class="total-valor">{{ cotizacion()!.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</h5>
+          </div>
+        </div>
+
+        <div class="divisor"></div>
+
+        <div class="reglas-resumen">
+          <strong class="caption">Reglas del alojamiento:</strong>
+          <ul class="lista-reglas-mini">
+            @for (regla of alojamiento()!.reglas; track regla) {
+              <li class="caption">{{ regla }}</li>
+            }
+          </ul>
+        </div>
+      </section>
+
+      <!-- Columna Derecha: Formulario de datos del huésped -->
+      <section class="formulario-card">
+        <div class="mini-preview">
+          <img [src]="alojamiento()!.imagenPrincipal" [alt]="alojamiento()!.nombre" class="mini-img" />
+          <div>
+            <h6 class="mini-nombre">{{ alojamiento()!.nombre }}</h6>
+            <p class="mini-precio caption">Total a pagar: <strong>{{ cotizacion()!.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong></p>
+          </div>
+        </div>
+
+        <div class="divisor"></div>
+
+        <form [formGroup]="formulario" (submit)="$event.preventDefault(); confirmarReserva()" novalidate class="form-huesped">
+          <div class="campo" [class.campo-error]="errorNombre">
+            <label class="etiqueta" for="nombre">Nombre completo</label>
+            <input
+              id="nombre"
+              type="text"
+              formControlName="nombre"
+              placeholder="Ej. Juan Pérez"
+              autocomplete="name"
+            />
+            @if (errorNombre) {
+              <span class="mensaje-error caption" role="alert">{{ errorNombre }}</span>
+            }
+          </div>
+
+          <div class="campo" [class.campo-error]="errorCorreo">
+            <label class="etiqueta" for="correo">Correo electrónico</label>
+            <input
+              id="correo"
+              type="email"
+              formControlName="correo"
+              placeholder="Ej. juan@correo.com"
+              autocomplete="email"
+            />
+            @if (errorCorreo) {
+              <span class="mensaje-error caption" role="alert">{{ errorCorreo }}</span>
+            }
+          </div>
+
+          <button type="submit" class="boton-confirmar">
+            Confirmar reserva
+          </button>
+        </form>
+      </section>
+    </div>
+  }
+</div>
