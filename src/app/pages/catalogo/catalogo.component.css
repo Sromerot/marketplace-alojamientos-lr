@@ -15,7 +15,7 @@
 
 .layout-catalogo {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 360px;
   gap: calc(var(--space) * 4);
   align-items: start;
 }
