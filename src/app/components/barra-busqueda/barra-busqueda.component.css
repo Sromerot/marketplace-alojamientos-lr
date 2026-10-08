@@ -65,13 +65,35 @@ select:focus {
   background-color: var(--color-action-hover);
 }
 
+.boton-buscar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space);
+  height: 40px;
+  padding: 0 calc(var(--space) * 2);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-primary-main);
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.boton-buscar:hover {
+  background-color: var(--color-primary-dark);
+}
+
 @media (max-width: 767px) {
   .fila {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .boton-limpiar {
+  .boton-limpiar,
+  .boton-buscar {
     width: 100%;
   }
 }

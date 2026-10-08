@@ -13,7 +13,9 @@ export class BarraBusquedaComponent {
   tipos = input<string[]>([]);
   filtrosIniciales = input<FiltrosAlojamiento>({});
   mostrarSecundarios = input<boolean>(true);
+  mostrarBotonBuscar = input<boolean>(false);
   filtrosChange = output<FiltrosAlojamiento>();
+  buscar = output<FiltrosAlojamiento>();
 
   formulario = new FormGroup({
     ciudad: new FormControl<string>('', { nonNullable: true }),
@@ -39,6 +41,10 @@ export class BarraBusquedaComponent {
     this.formulario.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.filtrosChange.emit(this.construirFiltros()));
+  }
+
+  ejecutarBuscar(): void {
+    this.buscar.emit(this.construirFiltros());
   }
 
   limpiar(): void {
