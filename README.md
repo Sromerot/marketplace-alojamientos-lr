@@ -1,27 +1,41 @@
-# Marketplace de Alojamientos — Inversiones LR
+# LR — Marketplace de Alojamientos
 
-Frontend de un marketplace de alojamientos temporales (plataforma **LR**). El huésped explora alojamientos, los filtra, consulta el detalle, obtiene una cotización, simula una reserva y consulta sus reservas. No tiene backend, login ni pagos: los datos salen de un JSON y las reservas se guardan en `localStorage`.
+## Descripción
 
-Proyecto académico — Desarrollo de Sistemas de Información 3, Universidad El Bosque.
+Aplicación web (solo frontend) desarrollada con Angular para **Inversiones LR**, una empresa que administra propiedades de alojamiento temporal. Permite que un huésped explore los alojamientos disponibles, los filtre, consulte el detalle de cada uno, elija fechas, obtenga una cotización, registre una reserva de forma simulada y consulte sus reservas.
+
+No hay backend: los datos iniciales viven en un archivo JSON que se consulta a través de un servicio de Angular, y las reservas se guardan en el navegador (localStorage).
+
+Proyecto del curso **Desarrollo de Sistemas de Información 3**, Ingeniería de Sistemas, Universidad El Bosque.
 
 ## Integrantes
 
-- (Escribe aquí tu nombre)
+- Samuel Romero Torres
 
-## Tecnologías
+## Tecnologías utilizadas
 
-- Angular 22 (componentes standalone), TypeScript estricto
-- Reactive Forms, Angular Router, HttpClient
-- CSS puro (sin Bootstrap ni Angular Material)
+- Angular (componentes standalone)
+- TypeScript
+- HTML y CSS puro (variables CSS, flexbox y grid)
+- Angular Router (navegación entre pantallas)
+- HttpClient (lectura del archivo JSON)
+- Reactive Forms (cotizador y formulario de reserva)
+- localStorage (persistencia de las reservas)
+- Google Fonts (Inria Serif)
+- Git y GitHub (control de versiones)
+- Figma y draw.io (prototipos)
 
 ## Requisitos
 
-- Node.js v26.9.0 (la versión usada en el desarrollo)
+- Node.js v26.9.0 y npm
 - Angular CLI 22.2.2
+- Git
 
 ## Instalación
 
 ```bash
+git clone https://github.com/Sromerot/marketplace-alojamientos-lr.git
+cd marketplace-alojamientos-lr
 npm install
 ```
 
@@ -31,25 +45,44 @@ npm install
 npm start
 ```
 
-Abre http://localhost:4200.
+Abre http://localhost:4200 en el navegador. Para detener el servidor, usa `Ctrl + C`.
+
+Para generar la versión de producción:
+
+```bash
+npx ng build
+```
 
 ## Funcionalidades principales
 
-_(Se completa a medida que avanzan los pasos.)_
-
-Hasta ahora (paso 1): modelos, datos JSON, tokens de diseño y `AlojamientoService`.
+- **Inicio:** nombre de la plataforma, descripción, alojamientos destacados y acceso a la búsqueda.
+- **Catálogo:** listado de alojamientos activos con imagen, nombre, ciudad, tipo, capacidad, precio por noche, calificación, servicios y mapa decorativo de cobertura.
+- **Filtros:** por ciudad, número de huéspedes, tipo de alojamiento y precio máximo, con actualización inmediata y botón para limpiar.
+- **Búsqueda por fechas:** valida el rango de fechas y oculta los alojamientos ya reservados en esas fechas, con mensajes cuando no hay resultados.
+- **Detalle del alojamiento:** descripción, ubicación, capacidad, habitaciones, camas, baños, servicios, reglas, calificación, reseñas y galería de imágenes.
+- **Cotización:** a partir de las fechas y los huéspedes calcula noches, subtotal, tarifa de limpieza, tarifa de servicio (10 %) y total.
+- **Reserva simulada:** solicita nombre y correo, y registra la reserva con estado CONFIRMADA.
+- **Mis reservas:** lista las reservas realizadas, con un mensaje cuando no hay ninguna y opción de cancelar.
+- **Reglas de negocio:** validación de fechas y de capacidad, y los alojamientos inactivos nunca se muestran.
 
 ## Estructura del proyecto
 
 ```
 src/
 ├── assets/
-│   ├── data/marketplace-data.json
-│   └── images/
-├── styles.css          tokens y estilos globales
+│   ├── data/marketplace-data.json   # Datos de alojamientos y reseñas
+│   └── images/                      # Imágenes de los alojamientos y mapa
+├── styles.css                       # Variables de diseño y estilos globales
 └── app/
-    ├── models/         alojamiento, resena, filtros, cotizacion, reserva
-    ├── services/       alojamiento (los demás llegan en pasos siguientes)
-    ├── app.routes.ts
-    └── app.config.ts
+    ├── models/                      # Interfaces de TypeScript (alojamiento, cotización, reserva)
+    ├── services/                    # Acceso a datos, cálculo de cotización y manejo de reservas
+    ├── components/                  # Componentes reutilizables (navbar, tarjetas, cotizador, mapa, etc.)
+    ├── pages/                       # Una página por ruta
+    │   ├── inicio/
+    │   ├── catalogo/
+    │   ├── detalle-alojamiento/
+    │   ├── formulario-reserva/
+    │   └── mis-reservas/
+    ├── app.routes.ts                # Rutas de la aplicación
+    └── app.config.ts                # Configuración global
 ```
