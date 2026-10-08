@@ -1,1 +1,41 @@
-<p>inicio works!</p>
+<div class="pagina-inicio">
+  <section class="hero">
+    <div class="hero-contenido">
+      <p class="eslogan overline">Encuentra tu próximo alojamiento</p>
+      <h3 class="hero-titulo">LR</h3>
+      <p class="hero-descripcion">
+        Inversiones LR administra propiedades de alojamiento temporal exclusivas para que disfrutes de estancias inolvidables en los mejores destinos.
+      </p>
+
+      <div class="hero-buscador">
+        <app-barra-busqueda
+          [mostrarSecundarios]="false"
+          [mostrarBotonBuscar]="true"
+          (buscar)="buscarAlojamientos($event)"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion-bloque">
+    <div class="seccion-encabezado">
+      <h5 class="seccion-titulo">Alojamientos destacados</h5>
+    </div>
+    <div class="fila-tarjetas">
+      @for (alojamiento of destacados(); track alojamiento.id) {
+        <app-alojamiento-card [alojamiento]="alojamiento" variante="compacta" />
+      }
+    </div>
+  </section>
+
+  <section class="seccion-bloque">
+    <div class="seccion-encabezado">
+      <h5 class="seccion-titulo">Más económicos</h5>
+    </div>
+    <div class="fila-tarjetas">
+      @for (alojamiento of economicos(); track alojamiento.id) {
+        <app-alojamiento-card [alojamiento]="alojamiento" variante="compacta" />
+      }
+    </div>
+  </section>
+</div>
