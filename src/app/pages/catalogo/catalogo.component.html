@@ -15,6 +15,19 @@
         <app-alojamiento-card [alojamiento]="alojamiento" />
       }
     </div>
+  } @else if (rangoFechas(); as rango) {
+    <app-alerta-mensaje
+      tipo="info"
+      [mensaje]="
+        'No hay hospedajes disponibles del ' +
+        (rango.llegada | date: 'd MMM y') +
+        ' al ' +
+        (rango.salida | date: 'd MMM y') +
+        '.'
+      "
+      textoBoton="Limpiar filtros"
+      (accion)="limpiarFiltros()"
+    />
   } @else {
     <app-alerta-mensaje
       tipo="info"

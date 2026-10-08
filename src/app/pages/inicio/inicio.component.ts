@@ -22,6 +22,8 @@ export class InicioComponent {
   buscarAlojamientos(filtros: FiltrosAlojamiento): void {
     const queryParams: Record<string, string | number> = {};
     if (filtros.ciudad) queryParams['ciudad'] = filtros.ciudad;
+    if (filtros.llegada) queryParams['llegada'] = filtros.llegada;
+    if (filtros.salida) queryParams['salida'] = filtros.salida;
     if (filtros.huespedes) queryParams['huespedes'] = filtros.huespedes;
     if (filtros.tipo) queryParams['tipo'] = filtros.tipo;
     if (filtros.precioMax) queryParams['precioMax'] = filtros.precioMax;
