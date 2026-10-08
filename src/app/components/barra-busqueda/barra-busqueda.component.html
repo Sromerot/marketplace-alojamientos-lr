@@ -5,6 +5,14 @@
       <input id="ciudad" type="text" formControlName="ciudad" placeholder="Ciudad" />
     </div>
 
+    <div class="campo campo-fechas">
+      <span class="etiqueta">Fechas</span>
+      <div class="fechas">
+        <input id="llegada" type="date" formControlName="llegada" aria-label="Fecha de llegada" />
+        <input id="salida" type="date" formControlName="salida" aria-label="Fecha de salida" />
+      </div>
+    </div>
+
     <div class="campo">
       <label class="etiqueta" for="huespedes">Quién</label>
       <input id="huespedes" type="number" min="1" formControlName="huespedes" placeholder="Huéspedes" />
@@ -22,6 +30,14 @@
       </button>
     }
   </div>
+
+  @if (erroresFechas().length > 0) {
+    <div class="errores-fechas" role="alert">
+      @for (error of erroresFechas(); track error) {
+        <p class="error-fecha">{{ error }}</p>
+      }
+    </div>
+  }
 
   @if (mostrarSecundarios()) {
     <div class="fila secundaria">

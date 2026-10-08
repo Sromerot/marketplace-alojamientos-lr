@@ -27,6 +27,27 @@
   color: var(--color-text-secondary);
 }
 
+.campo-fechas {
+  flex: 2;
+}
+
+.fechas {
+  display: flex;
+  gap: var(--space);
+}
+
+.errores-fechas {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error-fecha {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-error-main);
+}
+
 input,
 select {
   width: 100%;
