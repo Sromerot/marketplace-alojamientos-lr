@@ -8,9 +8,10 @@ import { FiltrosAlojamiento } from '../../models/filtros-alojamiento';
 import { AlojamientoCardComponent } from '../../components/alojamiento-card/alojamiento-card.component';
 import { BarraBusquedaComponent } from '../../components/barra-busqueda/barra-busqueda.component';
 import { AlertaMensajeComponent } from '../../components/alerta-mensaje/alerta-mensaje.component';
+import { MapaDecorativoComponent } from '../../components/mapa-decorativo/mapa-decorativo.component';
 
 @Component({
-  imports: [AlojamientoCardComponent, BarraBusquedaComponent, AlertaMensajeComponent, DatePipe],
+  imports: [AlojamientoCardComponent, BarraBusquedaComponent, AlertaMensajeComponent, MapaDecorativoComponent, DatePipe],
   selector: 'app-catalogo',
   styleUrl: './catalogo.component.css',
   templateUrl: './catalogo.component.html',

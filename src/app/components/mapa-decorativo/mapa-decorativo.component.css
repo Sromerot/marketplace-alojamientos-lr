@@ -1,0 +1,55 @@
+.contenedor-mapa {
+  position: sticky;
+  top: calc(var(--space) * 3);
+}
+
+.mapa-tarjeta {
+  background-color: var(--color-bg-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-1);
+  padding: calc(var(--space) * 2);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 1.5);
+}
+
+.mapa-encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.etiqueta-mapa {
+  color: var(--color-primary-main);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.titulo-mapa {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.mapa-marco {
+  width: 100%;
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  border: 1px solid var(--color-divider);
+  background-color: var(--color-action-disabled-bg);
+  aspect-ratio: 4 / 3;
+}
+
+.mapa-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pie-mapa {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
