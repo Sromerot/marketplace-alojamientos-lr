@@ -118,3 +118,9 @@ select:focus {
     width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .fechas {
+    flex-direction: column;
+  }
+}

@@ -299,3 +299,13 @@ input:focus {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .acciones-exito {
+    flex-direction: column;
+  }
+
+  .detalles-resumen {
+    grid-template-columns: 1fr;
+  }
+}
