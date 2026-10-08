@@ -1,1 +1,92 @@
-<p>detalle-alojamiento works!</p>
+<div class="pagina-detalle">
+  @if (alojamiento(); as a) {
+    <div class="navegacion-volver">
+      <a routerLink="/alojamientos" class="enlace-volver">← Volver al catálogo</a>
+    </div>
+
+    <section class="seccion-galeria">
+      <app-galeria-imagenes [imagenes]="a.imagenes" [nombre]="a.nombre" />
+    </section>
+
+    <div class="columnas-detalle">
+      <div class="columna-info">
+        <header class="encabezado-alojamiento">
+          <span class="overline tipo-texto">{{ a.tipo }}</span>
+          <h4 class="nombre-alojamiento">{{ a.nombre }}</h4>
+          <p class="ubicacion-texto">
+            {{ a.ubicacion.includes(a.ciudad) ? a.ubicacion : a.ubicacion + ', ' + a.ciudad }} · <span class="estrella">★</span> {{ a.calificacion }}
+          </p>
+
+          <div class="datos-capacidades">
+            <span>{{ a.capacidad }} huéspedes</span>
+            <span>·</span>
+            <span>{{ a.habitaciones }} {{ a.habitaciones === 1 ? 'habitación' : 'habitaciones' }}</span>
+            <span>·</span>
+            <span>{{ a.camas }} {{ a.camas === 1 ? 'cama' : 'camas' }}</span>
+            <span>·</span>
+            <span>{{ a.banos }} {{ a.banos === 1 ? 'baño' : 'baños' }}</span>
+          </div>
+        </header>
+
+        <div class="divisor"></div>
+
+        <section class="seccion-detalle">
+          <h5 class="subtitulo-seccion">Descripción</h5>
+          <p class="texto-descripcion body2">{{ a.descripcion }}</p>
+        </section>
+
+        <div class="divisor"></div>
+
+        <section class="seccion-detalle">
+          <h5 class="subtitulo-seccion">Servicios</h5>
+          <div class="chips-servicios">
+            @for (servicio of a.servicios; track servicio) {
+              <span class="chip-servicio">{{ servicio }}</span>
+            }
+          </div>
+        </section>
+
+        <div class="divisor"></div>
+
+        <section class="seccion-detalle">
+          <h5 class="subtitulo-seccion">Reglas del alojamiento</h5>
+          <ul class="lista-reglas">
+            @for (regla of a.reglas; track regla) {
+              <li class="body2">{{ regla }}</li>
+            }
+          </ul>
+        </section>
+
+        <div class="divisor"></div>
+
+        <section class="seccion-detalle">
+          <h5 class="subtitulo-seccion">Reseñas</h5>
+          @if (resenas().length > 0) {
+            <div class="grilla-resenas">
+              @for (resena of resenas(); track resena.id) {
+                <app-resena-card [resena]="resena" />
+              }
+            </div>
+          } @else {
+            <p class="sin-resenas body2">Aún no hay reseñas para este alojamiento.</p>
+          }
+        </section>
+      </div>
+
+      <aside class="columna-cotizador">
+        <app-cotizador [alojamiento]="a" />
+      </aside>
+    </div>
+  } @else {
+    <div class="estado-no-encontrado">
+      <app-alerta-mensaje
+        tipo="error"
+        mensaje="Alojamiento no encontrado o no disponible."
+        textoBoton="Volver al catálogo"
+      />
+      <div class="acciones-error">
+        <a routerLink="/alojamientos" class="boton-volver">Explorar otros alojamientos</a>
+      </div>
+    </div>
+  }
+</div>
