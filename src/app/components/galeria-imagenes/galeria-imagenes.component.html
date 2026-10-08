@@ -1,0 +1,17 @@
+<div class="galeria" [class.unica]="imagenes().length <= 1">
+  @if (imagenes().length > 0) {
+    <div class="imagen-principal">
+      <img [src]="imagenes()[0]" [alt]="nombre()" />
+    </div>
+
+    @if (imagenes().length > 1) {
+      <div class="imagenes-secundarias">
+        @for (img of imagenes().slice(1, 5); track img; let i = $index) {
+          <div class="imagen-secundaria">
+            <img [src]="img" [alt]="nombre() + ' ' + (i + 2)" />
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

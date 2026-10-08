@@ -1,0 +1,71 @@
+<div class="cuadro-cotizador">
+  <div class="encabezado-precio">
+    <h5 class="precio-noche">
+      {{ alojamiento().precioNoche | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}
+      <span class="etiqueta-noche">/ noche</span>
+    </h5>
+  </div>
+
+  <form [formGroup]="formulario" (submit)="$event.preventDefault()" novalidate class="formulario-cotizacion">
+    <div class="fechas-fila">
+      <div class="campo">
+        <label class="etiqueta" for="fechaLlegada">Llegada</label>
+        <input id="fechaLlegada" type="date" formControlName="fechaLlegada" />
+      </div>
+      <div class="campo">
+        <label class="etiqueta" for="fechaSalida">Salida</label>
+        <input id="fechaSalida" type="date" formControlName="fechaSalida" />
+      </div>
+    </div>
+
+    <div class="campo">
+      <label class="etiqueta" for="huespedes">Huéspedes</label>
+      <input id="huespedes" type="number" min="1" [max]="alojamiento().capacidad" formControlName="huespedes" />
+    </div>
+
+    <button type="button" class="boton-cotizar" (click)="cotizar()">
+      Cotizar
+    </button>
+  </form>
+
+  @if (errores().length > 0) {
+    <div class="errores-lista" role="alert">
+      @for (err of errores(); track err) {
+        <p class="error-item caption">{{ err }}</p>
+      }
+    </div>
+  }
+
+  @if (cotizacion(); as c) {
+    <div class="desglose">
+      <div class="fila-desglose">
+        <span>{{ alojamiento().precioNoche | currency: 'COP' : 'symbol-narrow' : '1.0-0' }} × {{ c.noches }} {{ c.noches === 1 ? 'noche' : 'noches' }}</span>
+        <span>{{ c.subtotal | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+      </div>
+      <div class="fila-desglose">
+        <span>Tarifa de limpieza</span>
+        <span>{{ c.tarifaLimpieza | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+      </div>
+      <div class="fila-desglose">
+        <span>Tarifa de servicio (10 %)</span>
+        <span>{{ c.tarifaServicio | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+      </div>
+
+      <div class="divisor"></div>
+
+      <div class="fila-desglose total">
+        <strong>Total</strong>
+        <strong class="total-monto">{{ c.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
+      </div>
+    </div>
+  }
+
+  <button
+    type="button"
+    class="boton-reservar"
+    [disabled]="!cotizacion()"
+    (click)="reservar()"
+  >
+    Reservar
+  </button>
+</div>

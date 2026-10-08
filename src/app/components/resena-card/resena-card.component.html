@@ -1,0 +1,11 @@
+<div class="resena-tarjeta">
+  <div class="resena-cabecera">
+    <strong class="resena-usuario">{{ resena().usuario }}</strong>
+    <span class="resena-estrellas" [attr.aria-label]="resena().calificacion + ' estrellas'">
+      @for (estrella of [1, 2, 3, 4, 5]; track estrella) {
+        <span [class.dorada]="estrella <= resena().calificacion">★</span>
+      }
+    </span>
+  </div>
+  <p class="resena-comentario">{{ resena().comentario }}</p>
+</div>
