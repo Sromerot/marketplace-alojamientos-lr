@@ -24,17 +24,10 @@ export class CotizacionService {
       return { valido: false, errores };
     }
 
+    errores.push(...this.validarRangoFechas(fechaLlegada, fechaSalida));
+
     const llegada = this.parsearFecha(fechaLlegada);
     const salida = this.parsearFecha(fechaSalida);
-    const hoy = this.obtenerHoyMedianoche();
-
-    if (llegada < hoy) {
-      errores.push('La fecha de llegada no puede ser anterior a hoy.');
-    }
-
-    if (salida <= llegada) {
-      errores.push('La fecha de salida debe ser posterior a la de llegada.');
-    }
 
     if (!huespedes || huespedes <= 0) {
       errores.push('Ingresa al menos 1 huésped.');
@@ -71,6 +64,30 @@ export class CotizacionService {
     };
 
     return { valido: true, cotizacion, errores: [] };
+  }
+
+  validarRangoFechas(fechaLlegada: string, fechaSalida: string): string[] {
+    if (!fechaLlegada && !fechaSalida) {
+      return [];
+    }
+    if (!fechaLlegada) {
+      return ['Selecciona también la fecha de llegada.'];
+    }
+    if (!fechaSalida) {
+      return ['Selecciona también la fecha de salida.'];
+    }
+
+    const errores: string[] = [];
+    const llegada = this.parsearFecha(fechaLlegada);
+    const salida = this.parsearFecha(fechaSalida);
+
+    if (llegada < this.obtenerHoyMedianoche()) {
+      errores.push('La fecha de llegada no puede ser anterior a hoy.');
+    }
+    if (salida <= llegada) {
+      errores.push('La fecha de salida debe ser posterior a la de llegada.');
+    }
+    return errores;
   }
 
   private parsearFecha(fechaStr: string): Date {

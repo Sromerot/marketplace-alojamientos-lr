@@ -4,6 +4,7 @@ import { Observable, map, shareReplay } from 'rxjs';
 import { Alojamiento } from '../models/alojamiento';
 import { Resena } from '../models/resena';
 import { FiltrosAlojamiento } from '../models/filtros-alojamiento';
+import { ReservaService } from './reserva.service';
 
 /** Forma del archivo JSON completo: dos listas. */
 interface DatosMarketplace {
@@ -26,6 +27,7 @@ export class AlojamientoService {
    * HttpClient es el cliente HTTP (como RestTemplate/WebClient).
    */
   private readonly http = inject(HttpClient);
+  private readonly reservaService = inject(ReservaService);
 
   /** Ruta del JSON (se sirve desde src/assets gracias a angular.json). */
   private readonly urlDatos = 'assets/data/marketplace-data.json';
@@ -69,9 +71,8 @@ export class AlojamientoService {
   }
 
   /**
-   * Aplica los filtros a una lista ya cargada. Es una función PURA: no consulta
-   * nada ni modifica la lista original, solo devuelve una nueva.
-   * (Las fechas llegada/salida se agregarán en el paso 8 junto con la disponibilidad.)
+   * Aplica los filtros a una lista ya cargada. No modifica la lista original, solo
+   * devuelve una nueva; para la disponibilidad consulta las reservas guardadas.
    */
   filtrar(lista: Alojamiento[], filtros: FiltrosAlojamiento): Alojamiento[] {
     const ciudadBuscada = this.normalizar(filtros.ciudad ?? '');
@@ -91,6 +92,14 @@ export class AlojamientoService {
       }
       // Precio máximo: precioNoche menor o igual.
       if (filtros.precioMax && a.precioNoche > filtros.precioMax) {
+        return false;
+      }
+      // Disponibilidad: se oculta si hay una reserva CONFIRMADA que se cruce con el rango.
+      if (
+        filtros.llegada &&
+        filtros.salida &&
+        this.reservaService.estaOcupado(a.id, filtros.llegada, filtros.salida)
+      ) {
         return false;
       }
       return true;
