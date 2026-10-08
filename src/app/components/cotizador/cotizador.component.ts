@@ -6,6 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Alojamiento } from '../../models/alojamiento';
 import { Cotizacion } from '../../models/cotizacion';
 import { CotizacionService } from '../../services/cotizacion.service';
+import { ReservaService } from '../../services/reserva.service';
 
 @Component({
   imports: [ReactiveFormsModule, CurrencyPipe],
@@ -15,6 +16,7 @@ import { CotizacionService } from '../../services/cotizacion.service';
 })
 export class CotizadorComponent {
   private readonly cotizacionService = inject(CotizacionService);
+  private readonly reservaService = inject(ReservaService);
   private readonly router = inject(Router);
 
   alojamiento = input.required<Alojamiento>();
@@ -35,12 +37,21 @@ export class CotizadorComponent {
         if (this.cotizacion() !== null || this.errores().length > 0) {
           this.cotizacion.set(null);
           this.errores.set([]);
+          this.reservaService.limpiarCotizacion();
         }
       });
   }
 
   cotizar(): void {
     const val = this.formulario.getRawValue();
+
+    if (this.reservaService.estaOcupado(this.alojamiento().id, val.fechaLlegada, val.fechaSalida)) {
+      this.cotizacion.set(null);
+      this.errores.set(['Estas fechas ya están reservadas para este alojamiento.']);
+      this.reservaService.limpiarCotizacion();
+      return;
+    }
+
     const resultado = this.cotizacionService.calcular(
       this.alojamiento(),
       val.fechaLlegada,
@@ -51,9 +62,11 @@ export class CotizadorComponent {
     if (resultado.valido && resultado.cotizacion) {
       this.cotizacion.set(resultado.cotizacion);
       this.errores.set([]);
+      this.reservaService.guardarCotizacion(resultado.cotizacion);
     } else {
       this.cotizacion.set(null);
       this.errores.set(resultado.errores);
+      this.reservaService.limpiarCotizacion();
     }
   }
 
@@ -61,6 +74,7 @@ export class CotizadorComponent {
     const c = this.cotizacion();
     if (!c) return;
 
+    this.reservaService.guardarCotizacion(c);
     this.router.navigate(['/reservar', this.alojamiento().id]);
   }
 }
