@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, switchMap } from 'rxjs';
 import { AlojamientoService } from '../../services/alojamiento.service';
@@ -22,7 +22,12 @@ import { AlertaMensajeComponent } from '../../components/alerta-mensaje/alerta-m
 })
 export class DetalleAlojamientoComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly alojamientoService = inject(AlojamientoService);
+
+  irAlCatalogo(): void {
+    this.router.navigate(['/alojamientos']);
+  }
 
   alojamiento = toSignal(
     this.route.paramMap.pipe(
