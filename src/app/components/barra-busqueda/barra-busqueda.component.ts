@@ -55,9 +55,9 @@ export class BarraBusquedaComponent {
     const valor = this.formulario.getRawValue();
     return {
       ciudad: valor.ciudad.trim() || undefined,
-      huespedes: valor.huespedes || undefined,
+      huespedes: valor.huespedes && valor.huespedes > 0 ? valor.huespedes : undefined,
       tipo: valor.tipo || undefined,
-      precioMax: valor.precioMax || undefined,
+      precioMax: valor.precioMax && valor.precioMax > 0 ? valor.precioMax : undefined,
     };
   }
 }
