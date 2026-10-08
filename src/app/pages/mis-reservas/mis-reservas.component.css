@@ -1,0 +1,199 @@
+.pagina-mis-reservas {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: calc(var(--space) * 4) calc(var(--space) * 3) calc(var(--space) * 8);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 3);
+}
+
+.cabecera-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.titulo-pagina {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.subtitulo-pagina {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.estado-vacio {
+  margin-top: calc(var(--space) * 2);
+}
+
+.lista-reservas {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 2.5);
+}
+
+.tarjeta-reserva-horizontal {
+  background-color: var(--color-bg-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.tarjeta-reserva-horizontal:hover {
+  box-shadow: var(--shadow-8);
+}
+
+.imagen-contenedor {
+  width: 240px;
+  min-width: 240px;
+  background-color: var(--color-action-disabled-bg);
+}
+
+.reserva-imagen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-principal {
+  flex: 1;
+  padding: calc(var(--space) * 2.5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 2);
+}
+
+.fila-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space);
+}
+
+.alojamiento-enlace {
+  text-decoration: none;
+  color: inherit;
+}
+
+.alojamiento-enlace:hover .alojamiento-nombre {
+  color: var(--color-primary-main);
+}
+
+.alojamiento-nombre {
+  margin: 0;
+  font-size: 18px;
+  color: var(--color-text-primary);
+}
+
+.reserva-ciudad {
+  margin: 2px 0 0;
+  color: var(--color-text-secondary);
+}
+
+.chip-estado {
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.chip-estado.confirmada {
+  background-color: color-mix(in srgb, var(--color-success-main) 12%, transparent);
+  color: var(--color-success-main);
+  border: 1px solid var(--color-success-main);
+}
+
+.chip-estado.cancelada {
+  background-color: color-mix(in srgb, var(--color-error-main) 12%, transparent);
+  color: var(--color-error-main);
+  border: 1px solid var(--color-error-main);
+}
+
+.fila-detalles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space);
+  padding: calc(var(--space) * 1.5) 0;
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.detalle-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.etiqueta-gris {
+  color: var(--color-text-secondary);
+}
+
+.valor-detalle {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.fila-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.total-bloque {
+  display: flex;
+  flex-direction: column;
+}
+
+.total-valor {
+  font-size: 18px;
+  color: var(--color-text-primary);
+}
+
+.boton-peligro-contorno {
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-error-main);
+  background: transparent;
+  border: 1px solid var(--color-error-main);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.boton-peligro-contorno:hover {
+  background-color: color-mix(in srgb, var(--color-error-main) 10%, transparent);
+}
+
+@media (max-width: 768px) {
+  .tarjeta-reserva-horizontal {
+    flex-direction: column;
+  }
+
+  .imagen-contenedor {
+    width: 100%;
+    height: 180px;
+  }
+
+  .fila-detalles {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fila-pie {
+    flex-direction: column;
+    align-items: stretch;
+    gap: calc(var(--space) * 2);
+  }
+
+  .boton-peligro-contorno {
+    width: 100%;
+  }
+}

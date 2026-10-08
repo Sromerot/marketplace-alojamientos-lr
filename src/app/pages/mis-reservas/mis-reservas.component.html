@@ -1,1 +1,81 @@
-<p>mis-reservas works!</p>
+<div class="pagina-mis-reservas">
+  <header class="cabecera-seccion">
+    <h4 class="titulo-pagina">Mis reservas</h4>
+    <p class="subtitulo-pagina body2">Consulta el estado de tus reservas y gestiona tus viajes.</p>
+  </header>
+
+  @if (reservas().length === 0) {
+    <div class="estado-vacio">
+      <app-alerta-mensaje
+        tipo="info"
+        mensaje="Aún no tienes reservas."
+        textoBoton="Ver alojamientos"
+        (accion)="irAAlojamientos()"
+      />
+    </div>
+  } @else {
+    <div class="lista-reservas">
+      @for (r of reservas(); track r.id) {
+        <article class="tarjeta-reserva-horizontal">
+          <div class="imagen-contenedor">
+            <img [src]="r.imagen" [alt]="r.alojamientoNombre" class="reserva-imagen" />
+          </div>
+
+          <div class="info-principal">
+            <div class="fila-superior">
+              <div>
+                <a [routerLink]="['/alojamientos', r.alojamientoId]" class="alojamiento-enlace">
+                  <h6 class="alojamiento-nombre">{{ r.alojamientoNombre }}</h6>
+                </a>
+                <p class="reserva-ciudad caption">{{ r.ciudad }} · ID: {{ r.id }}</p>
+              </div>
+
+              <span class="chip-estado" [class.confirmada]="r.estado === 'CONFIRMADA'" [class.cancelada]="r.estado === 'CANCELADA'">
+                {{ r.estado }}
+              </span>
+            </div>
+
+            <div class="fila-detalles">
+              <div class="detalle-col">
+                <span class="caption etiqueta-gris">Fechas</span>
+                <span class="body2 valor-detalle">{{ r.fechaLlegada }} al {{ r.fechaSalida }}</span>
+              </div>
+
+              <div class="detalle-col">
+                <span class="caption etiqueta-gris">Duración</span>
+                <span class="body2 valor-detalle">{{ r.noches }} {{ r.noches === 1 ? 'noche' : 'noches' }}</span>
+              </div>
+
+              <div class="detalle-col">
+                <span class="caption etiqueta-gris">Huéspedes</span>
+                <span class="body2 valor-detalle">{{ r.huespedes }} {{ r.huespedes === 1 ? 'huésped' : 'huéspedes' }}</span>
+              </div>
+
+              <div class="detalle-col">
+                <span class="caption etiqueta-gris">Huésped principal</span>
+                <span class="body2 valor-detalle">{{ r.nombreHuesped }}</span>
+              </div>
+            </div>
+
+            <div class="fila-pie">
+              <div class="total-bloque">
+                <span class="caption etiqueta-gris">Total pagado</span>
+                <strong class="total-valor">{{ r.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
+              </div>
+
+              @if (r.estado === 'CONFIRMADA') {
+                <button
+                  type="button"
+                  class="boton-peligro-contorno"
+                  (click)="cancelarReserva(r.id)"
+                >
+                  Cancelar reserva
+                </button>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</div>
