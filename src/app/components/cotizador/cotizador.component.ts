@@ -45,13 +45,6 @@ export class CotizadorComponent {
   cotizar(): void {
     const val = this.formulario.getRawValue();
 
-    if (this.reservaService.estaOcupado(this.alojamiento().id, val.fechaLlegada, val.fechaSalida)) {
-      this.cotizacion.set(null);
-      this.errores.set(['Estas fechas ya están reservadas para este alojamiento.']);
-      this.reservaService.limpiarCotizacion();
-      return;
-    }
-
     const resultado = this.cotizacionService.calcular(
       this.alojamiento(),
       val.fechaLlegada,
@@ -59,15 +52,23 @@ export class CotizadorComponent {
       val.huespedes,
     );
 
-    if (resultado.valido && resultado.cotizacion) {
-      this.cotizacion.set(resultado.cotizacion);
-      this.errores.set([]);
-      this.reservaService.guardarCotizacion(resultado.cotizacion);
-    } else {
+    if (!resultado.valido || !resultado.cotizacion) {
       this.cotizacion.set(null);
       this.errores.set(resultado.errores);
       this.reservaService.limpiarCotizacion();
+      return;
     }
+
+    if (this.reservaService.estaOcupado(this.alojamiento().id, val.fechaLlegada, val.fechaSalida)) {
+      this.cotizacion.set(null);
+      this.errores.set(['Estas fechas ya están reservadas para este alojamiento.']);
+      this.reservaService.limpiarCotizacion();
+      return;
+    }
+
+    this.cotizacion.set(resultado.cotizacion);
+    this.errores.set([]);
+    this.reservaService.guardarCotizacion(resultado.cotizacion);
   }
 
   reservar(): void {
