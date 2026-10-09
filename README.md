@@ -65,6 +65,11 @@ npx ng build
 - **Mis reservas:** lista las reservas realizadas, con un mensaje cuando no hay ninguna y opción de cancelar.
 - **Reglas de negocio:** validación de fechas y de capacidad, y los alojamientos inactivos nunca se muestran.
 
+## Prototipos
+
+- **Figma** (pantallas a color y sistema de diseño): [Ver prototipo](https://www.figma.com/design/u27I4sLIfkzZjeczBFWLmX/MOCKUP?node-id=0-1&t=egw541DHOWOYnuD1-1)
+- **draw.io** (wireframes y estructura de navegación): [Ver wireframes](https://drive.google.com/file/d/1iohwFb3q4B_xPc0Flk41_40VDalLWDt3/view?usp=sharing)
+
 ## Estructura del proyecto
 
 ```
